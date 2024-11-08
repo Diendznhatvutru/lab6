@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.modal {
+  width: 600px; /* Tăng chiều rộng của modal */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em; /* Tăng padding cho phần header */
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-header h2 {
+  font-size: 1.5em; /* Tăng kích thước font của tiêu đề */
+}
+
+.close-button {
+  cursor: pointer;
+  font-size: 1.8em; /* Tăng kích thước của nút đóng */
+}
+
+.modal-body {
+  padding: 1.5em; /* Tăng padding cho nội dung modal */
+}
+
+.modal-body label {
+  display: block;
+  margin-top: 0.8em;
+  font-size: 1.1em; /* Tăng kích thước font của nhãn */
+  color: #333;
+}
+
+.modal-body input[type="text"],
+.modal-body select {
+  width: 100%;
+  padding: 0.8em; /* Tăng padding cho các ô nhập liệu */
+  margin-top: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.1em; /* Tăng kích thước font của ô nhập liệu */
+}
+
+.open-ide {
+  display: block;
+  width: 100%;
+  margin-top: 1.5em; /* Tăng khoảng cách của nút đến các phần tử trên */
+  padding: 1em; /* Tăng padding cho nút */
+  background-color: #000;
+  color: white;
+  font-size: 1.2em; /* Tăng kích thước font của nút */
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.open-ide:hover {
+  background-color: #333;
+}

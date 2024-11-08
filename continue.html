@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Challenge</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+      }
+
+      .modal {
+        width: 600px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5em;
+        background-color: #007bff;
+        color: white;
+      }
+
+      .modal-header h2 {
+        font-size: 1.5em;
+      }
+
+      .close-button {
+        cursor: pointer;
+        font-size: 1.8em;
+      }
+
+      .modal-body {
+        padding: 1.5em;
+      }
+
+      .modal-body label {
+        display: block;
+        margin-top: 0.8em;
+        font-size: 1.1em;
+        color: #333;
+      }
+
+      .modal-body input[type="text"],
+      .modal-body select,
+      .modal-body textarea {
+        width: 100%;
+        padding: 0.8em;
+        margin-top: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.1em;
+      }
+
+      .editor-container {
+        margin-top: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1em;
+        background-color: #f9f9f9;
+      }
+
+      .editor-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.5em;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.2em;
+        color: #666;
+      }
+
+      .editor-header span {
+        cursor: pointer;
+      }
+
+      .editor-textarea {
+        margin-top: 1em;
+        width: 100%;
+        height: 180px;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1.1em;
+        font-family: "Courier New", Courier, monospace;
+        resize: none;
+        background-color: #fff;
+      }
+
+      .test-case {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 1em;
+      }
+
+      .test-case input {
+        padding: 0.8em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+
+      .open-ide,
+      .update-challenge {
+        display: block;
+        width: 100%;
+        margin-top: 1.5em;
+        padding: 1em;
+        background-color: #000;
+        color: white;
+        font-size: 1.2em;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .open-ide:hover,
+      .update-challenge:hover {
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="create-challenge" class="modal">
+      <div class="modal-header">
+        <h2>New unit test custom challenge</h2>
+        <span class="close-button">&times;</span>
+      </div>
+      <div class="modal-body">
+        <label for="title">Challenge Title:</label>
+        <input type="text" id="title" placeholder="Demo" />
+
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+
+        <label for="description">Short description:</label>
+        <input
+          type="text"
+          id="description"
+          placeholder="Optional short description about this challenge..."
+        />
+
+        <button class="open-ide" onclick="openEditChallenge()">
+          Click here to open the Java (JUnit) IDE and edit your code &rarr;
+        </button>
+      </div>
+    </div>
+
+    <div id="edit-challenge" class="modal" style="display: none">
+      <div class="modal-header">
+        <h2>Edit custom challenge</h2>
+        <span class="close-button" onclick="closeEditChallenge()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Last modified by <em>sontth1@fpt.com</em> on Apr 01 2024</p>
+
+        <label for="title-edit">Challenge Title:</label>
+        <input type="text" id="title-edit" value="DSA ET Opt7 01" />
+
+        <label for="difficulty-edit">Difficulty:</label>
+        <select id="difficulty-edit">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+
+        <label for="description-edit">Short description:</label>
+        <input
+          type="text"
+          id="description-edit"
+          value="This is a private challenge"
+        />
+
+        <!-- Normal + Editor Textarea Khung -->
+        <div class="editor-container">
+          <div class="editor-header">
+            <span>Normal</span>
+            <span>&uarr;&darr;</span>
+            <span>B</span>
+            <span>I</span>
+            <span>U</span>
+            <span>""</span>
+            <span>123</span>
+            <span>&#8226;</span>
+            <span>&#128247;</span>
+            <!-- icon image -->
+            <span>&#128279;</span>
+            <!-- icon link -->
+            <span>&#9881;</span>
+            <!-- icon devtool -->
+          </div>
+          <textarea id="editor" class="editor-textarea">
+Write a program to count the number of elements as odd numbers in the array.
+Example: Array A = {12, 31, 25, 17, 40, 10, 29}
+=> Number of elements as odd number in array A is: 4</textarea
+          >
+        </div>
+
+        <label for="test-cases">Required test cases:</label>
+        <div class="test-case">
+          <input
+            type="text"
+            placeholder="Input 1"
+            value="12, 31, 25, 17, 40, 10, 29"
+          />
+          <input type="text" placeholder="Output" value="4" />
+          <input
+            type="text"
+            placeholder="Input 2"
+            value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+          />
+          <input type="text" placeholder="Output" value="5" />
+          <input type="text" placeholder="Input 3" value="0, 2, 4, 6, 8, 10" />
+          <input type="text" placeholder="Output" value="0" />
+        </div>
+
+        <button class="update-challenge">Update custom challenge</button>
+      </div>
+    </div>
+
+    <script>
+      function openEditChallenge() {
+        document.getElementById("create-challenge").style.display = "none";
+        document.getElementById("edit-challenge").style.display = "block";
+      }
+
+      function closeEditChallenge() {
+        document.getElementById("edit-challenge").style.display = "none";
+        document.getElementById("create-challenge").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
